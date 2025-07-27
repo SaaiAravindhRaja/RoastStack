@@ -1,5 +1,5 @@
-const express = require('express');
-const aiService = require('../services/aiService');
+import express from 'express';
+import aiService from '../services/aiService.js';
 
 const router = express.Router();
 
@@ -108,4 +108,4 @@ router.get('/modes', (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;

@@ -20,6 +20,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+*.log
+
+# Log directories
+logs/
+*/logs/
+**/logs/
 
 # Runtime data
 pids

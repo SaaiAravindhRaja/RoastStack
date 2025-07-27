@@ -1,58 +1,43 @@
-/* Custom animations and styles for Roast Stack */
-
-.roast-card-enter {
-  opacity: 0;
-  transform: translateY(20px);
+@import "tailwindcss";
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-.roast-card-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 300ms, transform 300ms;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.roast-card-exit {
-  opacity: 1;
-}
-
-.roast-card-exit-active {
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: opacity 300ms, transform 300ms;
-}
-
-/* Pulse animation for loading states */
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
   }
-  50% {
-    box-shadow: 0 0 30px rgba(255, 107, 53, 0.6);
+  to {
+    transform: rotate(360deg);
   }
 }
 
-.pulse-glow {
-  animation: pulse-glow 2s infinite;
-}
-
-/* Gradient text animation */
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
   }
 }
 
-.gradient-text {
-  background: linear-gradient(-45deg, #ff6b35, #f7931e, #ff6b35, #f7931e);
-  background-size: 400% 400%;
-  animation: gradient-shift 3s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
 }
