@@ -1,38 +1,58 @@
-.App {
-  text-align: center;
+/* Custom animations and styles for Roast Stack */
+
+.roast-card-enter {
+  opacity: 0;
+  transform: translateY(20px);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.roast-card-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.roast-card-exit {
+  opacity: 1;
+}
+
+.roast-card-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Pulse animation for loading states */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 107, 53, 0.6);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
 }
 
-.App-link {
-  color: #61dafb;
+/* Gradient text animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.gradient-text {
+  background: linear-gradient(-45deg, #ff6b35, #f7931e, #ff6b35, #f7931e);
+  background-size: 400% 400%;
+  animation: gradient-shift 3s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
