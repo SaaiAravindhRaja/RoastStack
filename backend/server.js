@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 const roastRoutes = require('./routes/roast');
@@ -11,7 +13,8 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(helmet());
-app.use(morgan('combined'));
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs', 'server.log'), { flags: 'a' });
+app.use(morgan('combined', { stream: accessLogStream }));
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:3000',
   credentials: true
@@ -21,6 +24,20 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api', roastRoutes);
+
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: '🔥 Welcome to Roast Stack API!',
+    description: 'Ready to absolutely demolish your tech stack choices',
+    endpoints: {
+      health: '/health',
+      roast: 'POST /api/roast',
+      modes: 'GET /api/modes'
+    },
+    version: '1.0.0'
+  });
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {
