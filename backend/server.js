@@ -17,14 +17,35 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Create logs directory if it doesn't exist
+const logsDir = path.join(__dirname, 'logs');
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir, { recursive: true });
+}
+
 // Middleware
 app.use(helmet());
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs', 'server.log'), { flags: 'a' });
-app.use(morgan('combined', { stream: accessLogStream }));
+
+// Only log to file in development, use console in production
+if (process.env.NODE_ENV === 'development') {
+  const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs', 'server.log'), { flags: 'a' });
+  app.use(morgan('combined', { stream: accessLogStream }));
+} else {
+  app.use(morgan('combined'));
+}
+
+// CORS - Allow multiple origins for deployment
+const allowedOrigins = [
+  'http://localhost:3000',
+  process.env.FRONTEND_URL,
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: allowedOrigins,
   credentials: true
 }));
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -41,7 +62,8 @@ app.get('/', (req, res) => {
       roast: 'POST /api/roast',
       modes: 'GET /api/modes'
     },
-    version: '1.0.0'
+    version: '1.0.0',
+    environment: process.env.NODE_ENV || 'development'
   });
 });
 
@@ -50,7 +72,8 @@ app.get('/health', (req, res) => {
   res.status(200).json({ 
     status: 'OK', 
     message: 'Roast Stack API is ready to destroy your tech choices! 🔥',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
   });
 });
 
@@ -71,7 +94,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🔥 Roast Stack API is running on port ${PORT}`);
   console.log(`🎯 Ready to absolutely demolish some tech stacks!`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
