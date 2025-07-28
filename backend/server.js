@@ -37,8 +37,8 @@ if (process.env.NODE_ENV === 'development') {
 // CORS - Allow multiple origins for deployment
 const allowedOrigins = [
   'http://localhost:3000',
-  "https://roasttech-h4wlqtfvk-onyxxx17s-projects.vercel.app/",
-  "https://roasttech.vercel.app/",
+  'https://roasttech-h4wlqtfvk-onyxxx17s-projects.vercel.app',
+  'https://roasttech.vercel.app',
   process.env.FRONTEND_URL,
   process.env.VERCEL_URL ? process.env.VERCEL_URL : null,
 ].filter(Boolean);
