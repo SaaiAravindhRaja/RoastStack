@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-
+import { API_BASE_URL } from '../App'
 const RoastModeSelector = ({ selectedMode, onModeChange }) => {
   const [modes, setModes] = useState([])
   const [loading, setLoading] = useState(true)
@@ -7,7 +7,7 @@ const RoastModeSelector = ({ selectedMode, onModeChange }) => {
   useEffect(() => {
     const fetchModes = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/modes')
+        const response = await fetch(`${API_BASE_URL}/api/modes`)
         const data = await response.json()
         if (data.success) {
           setModes(data.data.modes)

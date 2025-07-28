@@ -4,6 +4,8 @@ import RoastModeSelector from './components/RoastModeSelector'
 import RoastResult from './components/RoastResult'
 import Header from './components/Header'
 
+const API_BASE_URL = import.meta.env.API_BASE_URL || 'http://localhost:3001/api';
+
 function App() {
   const [roastResult, setRoastResult] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -14,7 +16,7 @@ function App() {
     setRoastResult(null)
     
     try {
-      const response = await fetch('https://roaststack.onrender.com/api/roast', {
+      const response = await fetch(`${API_BASE_URL}/roast`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,5 +80,5 @@ function App() {
     </div>
   )
 }
-
+export { API_BASE_URL }
 export default App
