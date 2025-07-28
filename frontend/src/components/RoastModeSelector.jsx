@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { API_BASE_URL } from '../App'
+
 const RoastModeSelector = ({ selectedMode, onModeChange }) => {
   const [modes, setModes] = useState([])
   const [loading, setLoading] = useState(true)
@@ -7,14 +8,14 @@ const RoastModeSelector = ({ selectedMode, onModeChange }) => {
   useEffect(() => {
     const fetchModes = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/modes`)
+        const response = await fetch(`${API_BASE_URL}/modes`)
         const data = await response.json()
         if (data.success) {
           setModes(data.data.modes)
         }
       } catch (error) {
         console.error('Failed to fetch modes:', error)
-        // Manually set modes
+        // Fallback modes
         setModes([
           { id: 'mild', name: 'Mild', emoji: '🧂', description: 'Gentle teasing with a smile' },
           { id: 'medium', name: 'Medium', emoji: '🌶️', description: 'Classic Gen-Z sass and sarcasm' },

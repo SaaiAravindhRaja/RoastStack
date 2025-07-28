@@ -4,7 +4,8 @@ import RoastModeSelector from './components/RoastModeSelector'
 import RoastResult from './components/RoastResult'
 import Header from './components/Header'
 
-const API_BASE_URL = import.meta.env.API_BASE_URL || 'http://localhost:3001/api';
+// Use VITE_ prefix for environment variables and provide your backend URL
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://your-backend-url.onrender.com/api';
 
 function App() {
   const [roastResult, setRoastResult] = useState(null)
@@ -80,5 +81,4 @@ function App() {
     </div>
   )
 }
-export { API_BASE_URL }
 export default App
