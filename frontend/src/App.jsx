@@ -5,7 +5,7 @@ import RoastResult from './components/RoastResult'
 import Header from './components/Header'
 
 // Use VITE_ prefix for environment variables and provide your backend URL
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://your-backend-url.onrender.com/api';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://roaststack-gogd.onrender.com/api';
 
 function App() {
   const [roastResult, setRoastResult] = useState(null)
