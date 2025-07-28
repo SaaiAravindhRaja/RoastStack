@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'development') {
 const allowedOrigins = [
   'http://localhost:3000',
   process.env.FRONTEND_URL,
-  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
+  process.env.VERCEL_URL ? process.env.VERCEL_URL : null,
 ].filter(Boolean);
 
 app.use(cors({
