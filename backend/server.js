@@ -17,9 +17,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Ensure logs directory exists
+const logsDir = path.join(__dirname, 'logs');
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir);
+}
+
 // Middleware
 app.use(helmet());
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs', 'server.log'), { flags: 'a' });
+const accessLogStream = fs.createWriteStream(path.join(logsDir, 'server.log'), { flags: 'a' });
 app.use(morgan('combined', { stream: accessLogStream }));
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:3000',
